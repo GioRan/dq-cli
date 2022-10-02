@@ -1,1 +1,1 @@
-# dql-cli
+# dq-cli
