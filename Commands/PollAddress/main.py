@@ -21,7 +21,8 @@ cli_name = os.path.dirname(os.path.realpath(__file__)).split(os.sep)[-1]
               type=int,
               required=True,
               help='Interval rate of polling in seconds.')
-def cli(interval: int):
+@click.pass_context
+def cli(ctx, interval: int):
     mail = Mail()
     gdrive = GDrive()
     poller = Poller()
@@ -48,10 +49,10 @@ def cli(interval: int):
 
                 subject: str = f"{f['name']} successfully received, process ongoing"
                 recipients: str = mail._get_recipients_by_cfu('TEST') if props['system']['mode'] == 'test' else \
-                    mail._get_recipients_by_cfu(f['cfu'])
+                            mail._get_recipients_by_cfu(f['cfu'])
                 mail.send(subject, recipients, 'file-received', {'fileName': f['name']})
 
-                psgc_cli(dest_folder)
+                ctx.invoke(psgc_cli, input=dest_folder)
 
             [gdrive.move_to_folder(f['id'], props['gdrive'][f"poll_{f['cfu']}_rejected"]) for f in invalid_files]
             poller.send_errs(invalid_files, mail)

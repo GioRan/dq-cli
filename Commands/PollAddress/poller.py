@@ -68,7 +68,8 @@ class Poller:
 
         req_cols: List[str] = ['wo_cust_addr_id', 'cust_ac_no', 'CFU', 'company name', 'site_no', 'Site_Addr_ID',
                                'Room/Floor No', 'Bldg/House No.', 'Bldg Name', 'Street No./Name', 'Barangay/District',
-                               'City', 'Province', 'Region', 'Country', 'PostCode', 'Address Type', 'Top Error(s)']
+                               'City', 'Province', 'Region', 'Country', 'PostCode', 'Address Type', 'Top Error(s)',
+                               'Is PSGC Compliant', 'PSGC Error(s)']
 
         file_data: pandas.DataFrame = gdrive.download(file, in_memory_only=True)
 
@@ -96,7 +97,7 @@ class Poller:
         for f in files:
             subject: str = f"{f['name']} failed validation due to error(s)"
             recipients: str = mail._get_recipients_by_cfu('TEST') if props['system']['mode'] == 'test' else \
-                mail._get_recipients_by_cfu(f['cfu'])
+                            mail._get_recipients_by_cfu(f['cfu'])
             html_errs = mail._parse_list_to_html(f['errs'])
             payload = {'fileName': f['name'], 'errorList': html_errs}
 
@@ -120,6 +121,9 @@ class Poller:
 
         if file_owner in props['mail']['SG_users']:
             return 'SG'
+
+        if file_owner in props['mail']['TEST_users']:
+            return 'TEST'
 
     ############
     ## Backup ##
