@@ -37,6 +37,8 @@ def cli(ctx):
 
         for f in valid_files:
             dest_folder = f'{os.path.dirname(project_folder)}/{psgc_cli_name}/Resource'
+
+            logging.debug(dest_folder)
             gdrive.download(f, destination_folder=dest_folder)
             gdrive.move_to_folder(f['id'], props['gdrive']['poll_archive_for_validation'])
 
