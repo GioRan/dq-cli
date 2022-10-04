@@ -5,7 +5,7 @@ import os
 import shutil
 from functools import partial
 from io import BytesIO
-from typing import List, Any, Union
+from typing import List, Any
 
 import itertools
 import pandas
@@ -18,7 +18,7 @@ from Utilities.config import props
 class Utils:
 
     @staticmethod
-    def read_csv(input_dir: Union[str, BytesIO], required_columns=None, nrows=None, encoding='utf-8', converters=None,
+    def read_csv(input_dir, required_columns=None, nrows=None, encoding='utf-8', converters=None,
                  cast_to_string=True,
                  additional_columns=None) -> pandas.DataFrame:
 
@@ -64,7 +64,7 @@ class Utils:
         return csv
 
     @staticmethod
-    def read_excel(input_dir: Union[str, BytesIO], cast_to_string=True, additional_columns=None) -> pandas.DataFrame:
+    def read_excel(input_dir, cast_to_string=True, additional_columns=None) -> pandas.DataFrame:
         """
         Read Excel file from given file path
 
@@ -131,10 +131,7 @@ class Utils:
         return dfs
 
     @staticmethod
-    def read_all_excel(input_dir: str, additional_columns=None, concat: bool = True) -> Union[pandas.DataFrame,
-                                                                                              List[tuple[
-                                                                                                  pandas.DataFrame,
-                                                                                                  str]]]:
+    def read_all_excel(input_dir: str, additional_columns=None, concat: bool = True):
         """
         Read all Excel files from given folder path
 
