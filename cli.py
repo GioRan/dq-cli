@@ -1,6 +1,6 @@
 import click
 
-from Commands.AddressCleansing.main import cli as address_cleansing
+# from Commands.AddressCleansing.main import cli as address_cleansing
 from Commands.GoogleDriveAPI.main import cli as gdrive
 from Commands.PSGCValidation.main import cli as psgc_validation
 from Commands.PollAddress.main import cli as poll
@@ -16,7 +16,7 @@ def entry_point():
 
 
 if __name__ == '__main__':
-    entry_point.add_command(address_cleansing)
+    # entry_point.add_command(address_cleansing)
     entry_point.add_command(top_errors)
     entry_point.add_command(psgc_validation)
     entry_point.add_command(poll)

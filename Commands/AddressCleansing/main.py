@@ -43,20 +43,20 @@ def cli(input: str, bypass: bool = False):
     geojson_lookup = GeoJSONLookup(psgc_old)
 
     try:
-        print(f'Running {autofill.__class__.__name__}...')
+        logging.info(f'Running {autofill.__class__.__name__}...')
         df = utils.parallelize(autofill.apply_autofill, df)
 
-        print(f'Running {free_text_matching.__class__.__name__}...')
+        logging.info(f'Running {free_text_matching.__class__.__name__}...')
         df['concat_address'] = df[['bldg_name', 'street_name', 'area_name', 'town', 'province']].agg(' '.join,
                                                                                                      axis=1)
         df = utils.parallelize(free_text_matching.apply_matching, df)
 
-        print(f'Running {google_reverse_geocoding.__class__.__name__}...')
+        logging.info(f'Running {google_reverse_geocoding.__class__.__name__}...')
         df = utils.parallelize(google_reverse_geocoding.apply_reverse_geocoding, df)
         df = pandas.concat(df.to_list(), ignore_index=True)
         df = google_reverse_geocoding.prioritization(df)
 
-        print(f'Running {geojson_lookup.__class__.__name__}...')
+        logging.info(f'Running {geojson_lookup.__class__.__name__}...')
         df = utils.parallelize(geojson_lookup.apply_geojson_lookup, df, geopip=geopip_i)
         df = pandas.concat(df.to_list(), ignore_index=True)
 
@@ -65,5 +65,5 @@ def cli(input: str, bypass: bool = False):
         utils.save_to_csv(f'{address_cleansing.output_path}/{address_cleansing.filename}_', df)
 
     except Exception:
-        print(traceback.format_exc())
+        logging.error(traceback.format_exc())
         utils.save_to_csv(f'{address_cleansing.output_path}/{address_cleansing.filename}_', df)

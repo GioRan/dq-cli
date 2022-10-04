@@ -1,4 +1,5 @@
 import ast
+import logging
 import statistics
 from collections import ChainMap
 import re
@@ -51,8 +52,8 @@ class GeoJSONLookup:
             else:
                 return pandas.DataFrame([row])
         except Exception as e:
-            print(e)
-            print(**row)
+            logging.error(e)
+            logging.error(**row)
 
     def attach_geojson_fields(self, row: pandas.Series, geojson: dict, geojson_score: dict) -> pandas.Series:
         if 'geojson_PROVINCE' not in geojson or 'geojson_CITY_TOWN' not in geojson or 'geojson_BARANGAY' not in geojson or 'geojson_ZIP' not in geojson or \

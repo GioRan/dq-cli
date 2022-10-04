@@ -1,3 +1,5 @@
+import logging
+
 import pandas
 import warnings
 import httpx
@@ -37,7 +39,7 @@ class GoogleReverseGeocoding:
             return httpx.get(f'{self.api_endpoint}/{self.api_output_format}', headers=headers, params=params,
                              verify=False, timeout=None).json()
         except Exception as e:
-            print(e)
+            logging.error(e)
             return self.gmaps_request(address)
 
     def format_gmaps_response(self, row: pandas.Series, response: dict) -> list:

@@ -1,4 +1,5 @@
 import glob
+import logging
 import os
 import smtplib
 import ssl
@@ -58,7 +59,7 @@ class Mail(Constants):
 
         self.service.sendmail(self.sender_email, to_addrs=to.split(','), msg=mail.as_string())
 
-        print(f'{template} email was sent to the ff: {to}')
+        logging.info(f'{template} email was sent to the ff: {to}')
 
         self.service.quit()
 

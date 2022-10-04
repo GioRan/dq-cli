@@ -83,12 +83,6 @@ class ParseCircuit:
         return df
 
     def extract_circuit_id(self, value: str) -> str:
-        try:
-
-            value = value.replace(' ', '')
-
-        except:
-            print(True)
         patterns = [
             "IC-[a-zA-Z0-9]{3}-[a-zA-Z0-9]{4}",
             "IH-[a-zA-Z0-9]{3}-[a-zA-Z0-9]{4}",

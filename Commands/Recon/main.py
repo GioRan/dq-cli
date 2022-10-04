@@ -25,7 +25,7 @@ operation_type = ['leasedline']
                 required=True,
                 type=str,
                 help='Absolute folder path of local storage')
-def entrypoint(operation_type: str, input_path: str):
+def cli(operation_type: str, input_path: str):
     input_path = os.path.abspath(input_path)
 
     utils.check_path(input_path)
