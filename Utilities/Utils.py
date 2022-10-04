@@ -98,9 +98,7 @@ class Utils:
         return excel
 
     @staticmethod
-    def read_all_csv(input_dir: str, additional_columns=None, concat: bool = True) -> Union[pandas.DataFrame,
-                                                                                            List[tuple[pandas.DataFrame,
-                                                                                                       str]]]:
+    def read_all_csv(input_dir: str, additional_columns=None, concat: bool = True) -> Union[pandas.DataFrame, List[tuple[pandas.DataFrame, str]]]:
         """
         Read all csv files from given folder path
 
