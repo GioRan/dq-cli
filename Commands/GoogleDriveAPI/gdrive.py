@@ -134,6 +134,8 @@ class GDrive(Constants):
         if in_memory_only:
             return utils.read_excel(fileIO)
 
+        logging.debug(destination_folder)
+        logging.debug(file['name'])
         with open(os.path.join(destination_folder, file['name']), 'wb') as f:
             shutil.copyfileobj(fileIO, f)
             logging.info(f"File downloaded -> {os.path.join(destination_folder, file['name'])}")
