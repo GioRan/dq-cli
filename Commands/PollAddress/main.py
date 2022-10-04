@@ -18,7 +18,7 @@ cli_name = os.path.dirname(os.path.realpath(__file__)).split(os.sep)[-1]
 @click.command(name=f'{cli_name}',
                short_help='Poll drive directory for existing files then move it on another directory.')
 @click.pass_context
-def cli(ctx, interval: int):
+def cli(ctx):
     mail = Mail()
     gdrive = GDrive()
     poller = Poller()
