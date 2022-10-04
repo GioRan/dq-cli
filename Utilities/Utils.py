@@ -331,9 +331,9 @@ class Utils:
         logger = logging.getLogger()
         logger.setLevel(logging.DEBUG)
 
-        file_handler = logging.FileHandler('debug.log')
-        file_handler.setFormatter(log_formatter)
-        logger.addHandler(file_handler)
+        # file_handler = logging.FileHandler('debug.log')
+        # file_handler.setFormatter(log_formatter)
+        # logger.addHandler(file_handler)
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(log_formatter)
